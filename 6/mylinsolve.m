@@ -10,14 +10,12 @@ function [x, L, U, P] = mylinsolve(A, b)
         % if 1 row is left, we have to make it as exception
         % but for coding, I just added 1 zero row
         [~,I] = max([abs(T(i:asize,:)); zeros(1,asize+1)]);
-        disp(I);
-        disp(T);
+        
         % row exchange
         if i ~= I(i)+i-1
             T([i I(i)+i-1],:) = T([I(i)+i-1 i],:);
             P([i I(i)+i-1],:) = P([I(i)+i-1 i],:); 
         end
-        disp(T);
         
         for j = i+1:asize
             temp = T(j,i)/T(i,i);
@@ -25,7 +23,6 @@ function [x, L, U, P] = mylinsolve(A, b)
                                T(i,i+1:asize+1)*temp;
             T(j,i) = temp;
         end
-        disp(T);
     end
     
     L = eye(asize);
